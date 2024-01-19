@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfvt6a0nx6ws"]
+
+[ext_resource type="PackedScene" uid="uid://lvrem2nbth4i" path="res://scenes/beings/player.tscn" id="1_qxmm7"]
+[ext_resource type="Texture2D" uid="uid://d2oqtdyug4rlw" path="res://assets/graphics/miscellaneous/test_image.png" id="2_ynol7"]
+[ext_resource type="Script" path="res://scripts/components/visuals/pixel_sprite2d.gd" id="3_oi2qe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lmv0w"]
+size = Vector2(448, 20)
+
+[node name="TestArena" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_qxmm7")]
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(0, 96)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_lmv0w")
+
+[node name="PixelSprite2D" type="Sprite2D" parent="Floor"]
+texture_filter = 1
+scale = Vector2(28, 1)
+texture = ExtResource("2_ynol7")
+script = ExtResource("3_oi2qe")
