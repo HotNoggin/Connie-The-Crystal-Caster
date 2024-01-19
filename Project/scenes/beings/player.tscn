@@ -1,16 +1,15 @@
 [gd_scene load_steps=6 format=3 uid="uid://lvrem2nbth4i"]
 
-[ext_resource type="Script" path="res://scripts/components/movement/actor.gd" id="1_frs3t"]
+[ext_resource type="Script" path="res://scripts/specific/player.gd" id="1_nq42l"]
 [ext_resource type="Texture2D" uid="uid://d2oqtdyug4rlw" path="res://assets/graphics/miscellaneous/test_image.png" id="2_36fs5"]
 [ext_resource type="Script" path="res://scripts/components/visuals/pixel_sprite2d.gd" id="3_r22nu"]
 [ext_resource type="Script" path="res://scripts/components/control/player_controller.gd" id="4_2cbyp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_14fbs"]
-radius = 8.0
-height = 16.0
+radius = 13.0
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_controller")]
-script = ExtResource("1_frs3t")
+script = ExtResource("1_nq42l")
 player_controller = NodePath("PlayerController")
 
 [node name="PixelSprite2D" type="Sprite2D" parent="."]
