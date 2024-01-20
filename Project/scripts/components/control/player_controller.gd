@@ -3,6 +3,9 @@ extends Component
 
 @export var jump_buffer_time: float = 0.25 ## Run time of buffer in seconds
 var buffer_time_remaining: float = 0
+var just_shot: bool:
+	get:
+		return Input.is_action_just_pressed("shoot")
 var jump_buffered: bool:
 	get:
 		return buffer_time_remaining > 0

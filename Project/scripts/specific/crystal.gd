@@ -3,5 +3,5 @@ extends Collectable
 
 
 func _collected(player: Player):
-	player.health.decrease()
+	player.health.increase()
 	queue_free()

@@ -2,7 +2,7 @@ class_name Player
 extends Actor
 ## The player actor
 
-enum State {IDLE, RUN, JUMP, FALL, SHOOT, SHOOT_RUN}
+enum State {IDLE, RUN, JUMP, FALL, SHOOT, SHOOT_RUN, NONE}
 
 @export var player_controller: PlayerController
 @export var graphic: Sprite2D
@@ -12,6 +12,7 @@ enum State {IDLE, RUN, JUMP, FALL, SHOOT, SHOOT_RUN}
 @export var movement_speed: float = 300
 @export var jump_strength: float = 600
 
+var shoot_timer: Timer = Timer.new()
 var current_state: State:
 	set(value):
 		if not current_state == value:
@@ -21,6 +22,10 @@ var current_state: State:
 
 
 func _ready():
+	add_child(shoot_timer)
+	shoot_timer.one_shot = true
+	shoot_timer.timeout.connect(_done_shooting.bind("shoot_run"))
+	
 	# Display the health when it changes, set it to center
 	health.value = 3
 	health_label.text = str(health.value)
@@ -36,6 +41,8 @@ func _process(_delta):
 	if not health.alive:
 		return
 	
+	update_state()
+	
 	if player_controller.get_run_direction():
 			graphic.flip_h = true if player_controller.get_run_direction() > 0 else false
 	
@@ -50,13 +57,16 @@ func _process(_delta):
 			animator.play("run")
 		State.SHOOT:
 			animator.play("shoot")
+		State.SHOOT_RUN:
+			animator.play("shoot_run")
+		_:
+			animator.play("idle")
 
 
-func _physics_process(_delta):
-	update_state()
+func _physics_process(delta):
 	if health.alive:
 		_get_movement()
-		apply_gravity()
+		apply_gravity(delta)
 		if player_controller.just_jumped(self):
 			jump()
 		move_and_slide()
@@ -77,12 +87,28 @@ func jump():
 	velocity.y = -jump_strength
 
 
+func shoot():
+	health.value -= 1
+
+
 func call_transition():
 	Transition.transition_to_packed(death_scene)
 
 
-func update_state():
-	if velocity.y < 0:
+func update_state() -> void:
+	# Don't change states if shooting
+	if current_state == State.SHOOT:
+		return
+	if current_state == State.SHOOT_RUN:
+		if not player_controller.get_run_direction():
+			_done_shooting("shoot_run")
+		return
+	
+	# Choose the correct movement state
+	if player_controller.just_shot:
+		current_state = State.SHOOT
+		shoot()
+	elif velocity.y < 0:
 		current_state = State.JUMP
 	elif velocity.y > 0:
 		current_state = State.FALL
@@ -93,4 +119,21 @@ func update_state():
 
 
 func _state_changed(_old_state: State):
-	pass
+	if current_state == State.SHOOT:
+		if _old_state == State.RUN:
+			current_state = State.SHOOT_RUN
+			var time_mark: float = animator.current_animation_position
+			animator.play("shoot_run")
+			animator.seek(time_mark)
+			shoot_timer.start(animator.current_animation_length)
+		animator.animation_finished.connect(_done_shooting)
+		
+
+func _done_shooting(animation_name):
+	match animation_name:
+		"shoot", "shoot_run":
+			current_state = State.NONE
+			update_state()
+			animator.animation_finished.disconnect(_done_shooting)
+			if animation_name == "shoot_run":
+				shoot_timer.stop()

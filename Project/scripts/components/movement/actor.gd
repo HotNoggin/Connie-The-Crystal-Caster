@@ -9,12 +9,12 @@ var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 
 ## Changes the velocity of the actor according to gravity
-func apply_gravity(acceleration: float = gravity):
+func apply_gravity(delta: float, acceleration: float = gravity):
 	# fall quicker when already going down
 	if velocity.y > 0:
-		velocity.y += acceleration * fall_speed_scale
+		velocity.y += acceleration * fall_speed_scale * delta
 	else:
-		velocity.y += acceleration
+		velocity.y += acceleration * delta
 
 
 func die():

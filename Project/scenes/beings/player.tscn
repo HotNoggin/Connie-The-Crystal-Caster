@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://lvrem2nbth4i"]
+[gd_scene load_steps=34 format=3 uid="uid://lvrem2nbth4i"]
 
 [ext_resource type="Script" path="res://scripts/specific/player.gd" id="1_nq42l"]
 [ext_resource type="PackedScene" uid="uid://bpghn0crqbk2v" path="res://scenes/objects/crystal.tscn" id="2_7ncqw"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://bj0sqxbh882xg" path="res://assets/graphics/beings/connie_colored/Stop Shoot 1.png" id="19_kimvh"]
 [ext_resource type="Texture2D" uid="uid://baexswd5nplie" path="res://assets/graphics/beings/connie_colored/Jump 1.png" id="20_v7eck"]
 [ext_resource type="Texture2D" uid="uid://c326p4qnk0uwl" path="res://assets/graphics/beings/connie_colored/Fall 1.png" id="21_ocojg"]
+[ext_resource type="Script" path="res://scripts/components/control/bullet_spawner.gd" id="22_2t7um"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_14fbs"]
 radius = 24.0
@@ -92,26 +93,9 @@ tracks/0/keys = {
 "values": [ExtResource("8_5irxp"), ExtResource("9_8alos"), ExtResource("10_ahw5t"), ExtResource("11_gn5fe")]
 }
 
-[sub_resource type="Animation" id="Animation_cme6c"]
-resource_name = "run_shoot"
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PixelSprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("12_no5mb"), ExtResource("13_ahe3a"), ExtResource("14_pym4a"), ExtResource("15_pco7f")]
-}
-
 [sub_resource type="Animation" id="Animation_q8ba2"]
 resource_name = "shoot"
-length = 0.3
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -175,6 +159,23 @@ tracks/0/keys = {
 "values": [ExtResource("21_ocojg")]
 }
 
+[sub_resource type="Animation" id="Animation_cme6c"]
+resource_name = "shoot_run"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("12_no5mb"), ExtResource("13_ahe3a"), ExtResource("14_pym4a"), ExtResource("15_pco7f")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wubxq"]
 _data = {
 "RESET": SubResource("Animation_s4vje"),
@@ -183,8 +184,8 @@ _data = {
 "idle": SubResource("Animation_3foyi"),
 "jump": SubResource("Animation_dkqxy"),
 "run": SubResource("Animation_pedu7"),
-"run_shoot": SubResource("Animation_cme6c"),
 "shoot": SubResource("Animation_q8ba2"),
+"shoot_run": SubResource("Animation_cme6c"),
 "stop_shoot": SubResource("Animation_mm4qo")
 }
 
@@ -235,3 +236,15 @@ libraries = {
 "": SubResource("AnimationLibrary_wubxq")
 }
 autoplay = "idle"
+
+[node name="BulletSpawnerIdle" type="Node" parent="."]
+script = ExtResource("22_2t7um")
+
+[node name="Marker2D" type="Marker2D" parent="BulletSpawnerIdle"]
+position = Vector2(-48, -16)
+
+[node name="BulletSpawnerRun" type="Node" parent="."]
+script = ExtResource("22_2t7um")
+
+[node name="Marker2D" type="Marker2D" parent="BulletSpawnerRun"]
+position = Vector2(-64, 0)
