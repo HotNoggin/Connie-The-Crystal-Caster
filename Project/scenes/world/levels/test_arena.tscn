@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfvt6a0nx6ws"]
+[gd_scene load_steps=6 format=3 uid="uid://dfvt6a0nx6ws"]
 
 [ext_resource type="PackedScene" uid="uid://lvrem2nbth4i" path="res://scenes/beings/player.tscn" id="1_qxmm7"]
 [ext_resource type="Texture2D" uid="uid://d2oqtdyug4rlw" path="res://assets/graphics/miscellaneous/test_image.png" id="2_ynol7"]
 [ext_resource type="Script" path="res://scripts/components/visuals/pixel_sprite2d.gd" id="3_oi2qe"]
+[ext_resource type="PackedScene" uid="uid://bpghn0crqbk2v" path="res://scenes/objects/crystal.tscn" id="4_nrwop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lmv0w"]
 size = Vector2(864, 20)
@@ -25,3 +26,15 @@ script = ExtResource("3_oi2qe")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+
+[node name="Crystal" parent="." instance=ExtResource("4_nrwop")]
+position = Vector2(-128, 128)
+
+[node name="Crystal2" parent="." instance=ExtResource("4_nrwop")]
+position = Vector2(-64, 128)
+
+[node name="Crystal3" parent="." instance=ExtResource("4_nrwop")]
+position = Vector2(64, 128)
+
+[node name="Crystal4" parent="." instance=ExtResource("4_nrwop")]
+position = Vector2(128, 128)

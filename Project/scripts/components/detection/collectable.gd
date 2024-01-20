@@ -1,9 +1,18 @@
 class_name Collectable
 extends Area2D
 
+var collected_already: bool = false
 
-## Called when the collectable is collected by an actor
-## By default, the collectable simply destroys itself
-## Additional behavior can be added by overriding this function in extending classes
-func _collected():
+
+func _init():
+	body_entered.connect(_collided)
+
+
+func _collided(body: Node2D):
+	if body is Player:
+		_collected(body)
+		collected_already = true
+
+
+func _collected(_player: Player):
 	pass

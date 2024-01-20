@@ -1,10 +1,19 @@
+class_name Player
 extends Actor
 ## The player actor
 
 @export var player_controller: PlayerController
+@export var health_label: Label
 @export_group("Movement")
 @export var movement_speed: float = 100
 @export var jump_strength: float = 200
+
+
+func _ready():
+	# Display the health when it changes, set it to center
+	health.value = 3
+	health.changed.connect(func():
+		health_label.text = str(health.value))
 
 
 func _physics_process(_delta):
