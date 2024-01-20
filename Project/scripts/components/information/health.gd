@@ -18,6 +18,8 @@ var health: int = max_health:
 	set(value):
 		var old_value = health
 		health = clamp(value, 0, max_health)
+		if value > max_health:
+			overmaxed.emit()
 		if value == 0:
 			drained.emit()
 		if value == max_health:

@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var fall_speed_scale: float = 1 ## How much gravity should multiply when falling
 @export var health: Health
 @export var animator: AnimationPlayer
+var active: bool = true
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 

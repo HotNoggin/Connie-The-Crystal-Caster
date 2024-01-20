@@ -7,12 +7,15 @@ extends Component
 
 ## Instantiate the bullet at the marker position, given a direction, speed, and lifetime.
 func spawn_bullet(direction: Vector2,
-	spawn_position = marker.global_position,
-	speed: float = 10,
-	lifetime: float = 15):
+	spawn_position: Vector2 = marker.global_position,
+	speed: float = -1,
+	lifetime: float = -1):
 	
-	var this_bullet: Collectable = bullet.instantiate() as Collectable
+	var this_bullet: Projectile = bullet.instantiate() as Projectile
 	add_child(this_bullet)
-	var movement_vector = direction.normalized() * speed
-	print(movement_vector)
-	# change bullet movement vector
+	
+	# Give the bullet the new direction, speed, lifetime, and position
+	this_bullet.lifetime = lifetime if lifetime >= 0 else this_bullet.lifetime
+	this_bullet.movement_speed = speed if speed >= 0 else this_bullet.movement_speed
+	this_bullet.movement_direction = direction.normalized()
+	this_bullet.global_position = spawn_position

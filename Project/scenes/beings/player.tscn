@@ -1,7 +1,8 @@
-[gd_scene load_steps=34 format=3 uid="uid://lvrem2nbth4i"]
+[gd_scene load_steps=36 format=3 uid="uid://lvrem2nbth4i"]
 
 [ext_resource type="Script" path="res://scripts/specific/player.gd" id="1_nq42l"]
 [ext_resource type="PackedScene" uid="uid://bpghn0crqbk2v" path="res://scenes/objects/crystal.tscn" id="2_7ncqw"]
+[ext_resource type="Texture2D" uid="uid://bi0eaopajq8uy" path="res://assets/graphics/objects/crystal.png" id="3_0fruh"]
 [ext_resource type="Script" path="res://scripts/components/visuals/pixel_sprite2d.gd" id="3_r22nu"]
 [ext_resource type="Script" path="res://scripts/components/control/player_controller.gd" id="4_2cbyp"]
 [ext_resource type="Texture2D" uid="uid://cumx0kxjqmqk1" path="res://assets/graphics/beings/connie_colored/Idle 1.png" id="5_2gtwi"]
@@ -22,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://baexswd5nplie" path="res://assets/graphics/beings/connie_colored/Jump 1.png" id="20_v7eck"]
 [ext_resource type="Texture2D" uid="uid://c326p4qnk0uwl" path="res://assets/graphics/beings/connie_colored/Fall 1.png" id="21_ocojg"]
 [ext_resource type="Script" path="res://scripts/components/control/bullet_spawner.gd" id="22_2t7um"]
+[ext_resource type="PackedScene" uid="uid://cvguho10wlr12" path="res://scenes/objects/player_projectile.tscn" id="23_5fdb4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_14fbs"]
 radius = 24.0
@@ -59,6 +61,23 @@ tracks/0/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_qv8rt"]
+resource_name = "fall"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("21_ocojg")]
+}
+
 [sub_resource type="Animation" id="Animation_3foyi"]
 resource_name = "idle"
 length = 2.0
@@ -74,6 +93,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [ExtResource("5_2gtwi"), ExtResource("7_ygmw1"), ExtResource("5_2gtwi"), ExtResource("5_2gtwi"), ExtResource("7_ygmw1"), ExtResource("5_2gtwi"), ExtResource("7_ygmw1"), ExtResource("5_2gtwi")]
+}
+
+[sub_resource type="Animation" id="Animation_dkqxy"]
+resource_name = "jump"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("20_v7eck")]
 }
 
 [sub_resource type="Animation" id="Animation_pedu7"]
@@ -109,56 +145,6 @@ tracks/0/keys = {
 "values": [ExtResource("16_4obp7"), ExtResource("17_e2v5y"), ExtResource("18_ryg58")]
 }
 
-[sub_resource type="Animation" id="Animation_mm4qo"]
-resource_name = "stop_shoot"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PixelSprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("19_kimvh")]
-}
-
-[sub_resource type="Animation" id="Animation_dkqxy"]
-resource_name = "jump"
-length = 0.1
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PixelSprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("20_v7eck")]
-}
-
-[sub_resource type="Animation" id="Animation_qv8rt"]
-resource_name = "fall"
-length = 0.1
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PixelSprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("21_ocojg")]
-}
-
 [sub_resource type="Animation" id="Animation_cme6c"]
 resource_name = "shoot_run"
 length = 0.8
@@ -176,6 +162,22 @@ tracks/0/keys = {
 "values": [ExtResource("12_no5mb"), ExtResource("13_ahe3a"), ExtResource("14_pym4a"), ExtResource("15_pco7f")]
 }
 
+[sub_resource type="Animation" id="Animation_mm4qo"]
+resource_name = "stop_shoot"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("19_kimvh")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wubxq"]
 _data = {
 "RESET": SubResource("Animation_s4vje"),
@@ -189,14 +191,55 @@ _data = {
 "stop_shoot": SubResource("Animation_mm4qo")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_controller", "graphic", "health_label", "health", "animator")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_controller", "graphic", "idle_gun", "run_gun", "health_displays", "health", "animator")]
 script = ExtResource("1_nq42l")
 player_controller = NodePath("PlayerController")
 graphic = NodePath("PixelSprite2D")
-health_label = NodePath("Label")
+idle_gun = NodePath("BulletSpawnerIdle")
+run_gun = NodePath("BulletSpawnerRun")
+health_displays = [NodePath("HealthDisplays/DisplayA"), NodePath("HealthDisplays/DisplayB"), NodePath("HealthDisplays/DisplayC"), NodePath("HealthDisplays/DisplayD"), NodePath("HealthDisplays/DisplayE")]
 death_scene = ExtResource("2_7ncqw")
 health = NodePath("Health")
 animator = NodePath("AnimationPlayer")
+
+[node name="HealthDisplays" type="Node2D" parent="."]
+
+[node name="DisplayA" type="Sprite2D" parent="HealthDisplays"]
+position = Vector2(0, -56)
+rotation = -0.261799
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("3_0fruh")
+script = ExtResource("3_r22nu")
+
+[node name="DisplayB" type="Sprite2D" parent="HealthDisplays"]
+position = Vector2(-24, -40)
+rotation = -0.261799
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("3_0fruh")
+flip_h = true
+script = ExtResource("3_r22nu")
+
+[node name="DisplayC" type="Sprite2D" parent="HealthDisplays"]
+position = Vector2(24, -32)
+rotation = 0.374234
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("3_0fruh")
+script = ExtResource("3_r22nu")
+
+[node name="DisplayD" type="Sprite2D" parent="HealthDisplays"]
+position = Vector2(-24, -16)
+rotation = -1.0472
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("3_0fruh")
+flip_h = true
+script = ExtResource("3_r22nu")
+
+[node name="DisplayE" type="Sprite2D" parent="HealthDisplays"]
+position = Vector2(24, -16)
+rotation = 1.0472
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("3_0fruh")
+script = ExtResource("3_r22nu")
 
 [node name="PixelSprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.3, 0.3)
@@ -213,38 +256,24 @@ script = ExtResource("4_2cbyp")
 script = ExtResource("5_7t8nf")
 max_health = 5
 
-[node name="Label" type="Label" parent="."]
-visible = false
-texture_filter = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -0.5
-offset_top = -11.5
-offset_right = 0.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "HEALTH"
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_wubxq")
 }
 autoplay = "idle"
 
-[node name="BulletSpawnerIdle" type="Node" parent="."]
+[node name="BulletSpawnerIdle" type="Node" parent="." node_paths=PackedStringArray("marker")]
 script = ExtResource("22_2t7um")
+marker = NodePath("Marker2D")
+bullet = ExtResource("23_5fdb4")
 
 [node name="Marker2D" type="Marker2D" parent="BulletSpawnerIdle"]
 position = Vector2(-48, -16)
 
-[node name="BulletSpawnerRun" type="Node" parent="."]
+[node name="BulletSpawnerRun" type="Node" parent="." node_paths=PackedStringArray("marker")]
 script = ExtResource("22_2t7um")
+marker = NodePath("Marker2D")
+bullet = ExtResource("23_5fdb4")
 
 [node name="Marker2D" type="Marker2D" parent="BulletSpawnerRun"]
 position = Vector2(-64, 0)
