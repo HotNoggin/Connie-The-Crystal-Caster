@@ -12,16 +12,20 @@ extends Actor
 func _ready():
 	# Display the health when it changes, set it to center
 	health.value = 3
+	health_label.text = str(health.value)
 	health.changed.connect(func():
 		health_label.text = str(health.value))
 
 
 func _physics_process(_delta):
-	_get_movement()
-	apply_gravity()
-	if player_controller.just_jumped(self):
-		jump()
-	move_and_slide()
+	if health.alive:
+		_get_movement()
+		apply_gravity()
+		if player_controller.just_jumped(self):
+			jump()
+		move_and_slide()
+	else:
+			die()
 
 
 ## Sets the player horizontal movement according to the ipnut and speed
