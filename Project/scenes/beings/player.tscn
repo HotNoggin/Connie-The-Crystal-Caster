@@ -1,24 +1,205 @@
-[gd_scene load_steps=7 format=3 uid="uid://lvrem2nbth4i"]
+[gd_scene load_steps=33 format=3 uid="uid://lvrem2nbth4i"]
 
 [ext_resource type="Script" path="res://scripts/specific/player.gd" id="1_nq42l"]
-[ext_resource type="Texture2D" uid="uid://d2oqtdyug4rlw" path="res://assets/graphics/miscellaneous/test_image.png" id="2_36fs5"]
+[ext_resource type="PackedScene" uid="uid://bpghn0crqbk2v" path="res://scenes/objects/crystal.tscn" id="2_7ncqw"]
 [ext_resource type="Script" path="res://scripts/components/visuals/pixel_sprite2d.gd" id="3_r22nu"]
 [ext_resource type="Script" path="res://scripts/components/control/player_controller.gd" id="4_2cbyp"]
+[ext_resource type="Texture2D" uid="uid://cumx0kxjqmqk1" path="res://assets/graphics/beings/connie_colored/Idle 1.png" id="5_2gtwi"]
 [ext_resource type="Script" path="res://scripts/components/information/health.gd" id="5_7t8nf"]
+[ext_resource type="Texture2D" uid="uid://c7xp21encrwjy" path="res://assets/graphics/beings/connie_colored/Idle 2.png" id="7_ygmw1"]
+[ext_resource type="Texture2D" uid="uid://c77785u845vqe" path="res://assets/graphics/beings/connie_colored/Run 1.png" id="8_5irxp"]
+[ext_resource type="Texture2D" uid="uid://dx6tbb66hb2by" path="res://assets/graphics/beings/connie_colored/Run 2.png" id="9_8alos"]
+[ext_resource type="Texture2D" uid="uid://c3uxc5e8pnh3x" path="res://assets/graphics/beings/connie_colored/Run 3.png" id="10_ahw5t"]
+[ext_resource type="Texture2D" uid="uid://cd6ae5tsg37vf" path="res://assets/graphics/beings/connie_colored/Run 4.png" id="11_gn5fe"]
+[ext_resource type="Texture2D" uid="uid://dq1p8o5l75q8s" path="res://assets/graphics/beings/connie_colored/Run Shoot 1.png" id="12_no5mb"]
+[ext_resource type="Texture2D" uid="uid://cyc4lahtt0r77" path="res://assets/graphics/beings/connie_colored/Run Shoot 2.png" id="13_ahe3a"]
+[ext_resource type="Texture2D" uid="uid://ouvrmny075j" path="res://assets/graphics/beings/connie_colored/Run Shoot 3.png" id="14_pym4a"]
+[ext_resource type="Texture2D" uid="uid://depp1phjlb6no" path="res://assets/graphics/beings/connie_colored/Run Shoot 4.png" id="15_pco7f"]
+[ext_resource type="Texture2D" uid="uid://onmftnarubiu" path="res://assets/graphics/beings/connie_colored/Shoot 1.png" id="16_4obp7"]
+[ext_resource type="Texture2D" uid="uid://bs64f3gt2v1m5" path="res://assets/graphics/beings/connie_colored/Shoot 2.png" id="17_e2v5y"]
+[ext_resource type="Texture2D" uid="uid://cev7xk7n8bqq5" path="res://assets/graphics/beings/connie_colored/Shoot 3.png" id="18_ryg58"]
+[ext_resource type="Texture2D" uid="uid://bj0sqxbh882xg" path="res://assets/graphics/beings/connie_colored/Stop Shoot 1.png" id="19_kimvh"]
+[ext_resource type="Texture2D" uid="uid://baexswd5nplie" path="res://assets/graphics/beings/connie_colored/Jump 1.png" id="20_v7eck"]
+[ext_resource type="Texture2D" uid="uid://c326p4qnk0uwl" path="res://assets/graphics/beings/connie_colored/Fall 1.png" id="21_ocojg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_14fbs"]
-radius = 13.0
+radius = 24.0
+height = 112.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_controller", "health_label", "health", "animator")]
+[sub_resource type="Animation" id="Animation_s4vje"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_2gtwi")]
+}
+
+[sub_resource type="Animation" id="Animation_m5h0o"]
+resource_name = "die"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"call_transition"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_3foyi"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_2gtwi"), ExtResource("7_ygmw1"), ExtResource("5_2gtwi"), ExtResource("5_2gtwi"), ExtResource("7_ygmw1"), ExtResource("5_2gtwi"), ExtResource("7_ygmw1"), ExtResource("5_2gtwi")]
+}
+
+[sub_resource type="Animation" id="Animation_pedu7"]
+resource_name = "run"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("8_5irxp"), ExtResource("9_8alos"), ExtResource("10_ahw5t"), ExtResource("11_gn5fe")]
+}
+
+[sub_resource type="Animation" id="Animation_cme6c"]
+resource_name = "run_shoot"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("12_no5mb"), ExtResource("13_ahe3a"), ExtResource("14_pym4a"), ExtResource("15_pco7f")]
+}
+
+[sub_resource type="Animation" id="Animation_q8ba2"]
+resource_name = "shoot"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("16_4obp7"), ExtResource("17_e2v5y"), ExtResource("18_ryg58")]
+}
+
+[sub_resource type="Animation" id="Animation_mm4qo"]
+resource_name = "stop_shoot"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("19_kimvh")]
+}
+
+[sub_resource type="Animation" id="Animation_dkqxy"]
+resource_name = "jump"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("20_v7eck")]
+}
+
+[sub_resource type="Animation" id="Animation_qv8rt"]
+resource_name = "fall"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("21_ocojg")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wubxq"]
+_data = {
+"RESET": SubResource("Animation_s4vje"),
+"die": SubResource("Animation_m5h0o"),
+"fall": SubResource("Animation_qv8rt"),
+"idle": SubResource("Animation_3foyi"),
+"jump": SubResource("Animation_dkqxy"),
+"run": SubResource("Animation_pedu7"),
+"run_shoot": SubResource("Animation_cme6c"),
+"shoot": SubResource("Animation_q8ba2"),
+"stop_shoot": SubResource("Animation_mm4qo")
+}
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_controller", "graphic", "health_label", "health", "animator")]
 script = ExtResource("1_nq42l")
 player_controller = NodePath("PlayerController")
+graphic = NodePath("PixelSprite2D")
 health_label = NodePath("Label")
+death_scene = ExtResource("2_7ncqw")
 health = NodePath("Health")
 animator = NodePath("AnimationPlayer")
 
 [node name="PixelSprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-texture = ExtResource("2_36fs5")
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_2gtwi")
 script = ExtResource("3_r22nu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -32,6 +213,7 @@ script = ExtResource("5_7t8nf")
 max_health = 5
 
 [node name="Label" type="Label" parent="."]
+visible = false
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -49,3 +231,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "HEALTH"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wubxq")
+}
+autoplay = "idle"

@@ -20,8 +20,6 @@ func apply_gravity(acceleration: float = gravity):
 func die():
 	if animator.has_animation("die"):
 		animator.play("die")
-		animator.animation_finished.connect(func():
-			queue_free())
 	else:
-		printerr("Actor animator lacks a 'die' animation")
+		printerr("Actor animator lacks a 'die' animation and was freed.")
 		queue_free()
