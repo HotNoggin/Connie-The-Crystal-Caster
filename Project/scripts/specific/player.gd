@@ -107,7 +107,7 @@ func _get_movement(test: bool = false) -> float:
 
 ## Set the velocity to the jump height
 func jump():
-	velocity.y = -jump_strength
+	velocity.y = -jump_strength * ((health.max_health - health.value) * 0.5)
 
 
 func shoot(gun: BulletSpawner, direction: Vector2):
