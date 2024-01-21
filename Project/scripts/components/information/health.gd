@@ -18,14 +18,15 @@ var health: int = max_health:
 	set(value):
 		var old_value = health
 		health = clamp(value, 0, max_health)
-		if value > max_health:
-			overmaxed.emit()
-		if value == 0:
-			drained.emit()
-		if value == max_health:
-			maxed.emit()
 		if not old_value == health:
 			changed.emit()
+		if value == 0:
+			drained.emit()
+		elif value > max_health:
+			overmaxed.emit()
+		elif value == max_health:
+			maxed.emit()
+
 var alive: bool: ## Returns true if the health is greater than zero
 	get:
 		return health > 0

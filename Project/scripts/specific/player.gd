@@ -45,10 +45,17 @@ func _ready():
 
 
 func _process(_delta):
+	print(current_state)
+	print(animator.current_animation)
+	print(health.alive)
+	print("ARGH")
+	
 	if not health.alive:
+		animator.play("die")
 		return
 	
 	if not active:
+		animator.play("die")
 		return
 	
 	invincibility_remaining -= _delta
