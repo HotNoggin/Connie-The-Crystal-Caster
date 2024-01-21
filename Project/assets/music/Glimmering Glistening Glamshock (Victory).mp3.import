@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bs2ik6o2kyqjd"
+path="res://.godot/imported/Glimmering Glistening Glamshock (Victory).mp3-d9b32007bf9b1e8a11d2233f7dadbb44.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Glimmering Glistening Glamshock (Victory).mp3"
+dest_files=["res://.godot/imported/Glimmering Glistening Glamshock (Victory).mp3-d9b32007bf9b1e8a11d2233f7dadbb44.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

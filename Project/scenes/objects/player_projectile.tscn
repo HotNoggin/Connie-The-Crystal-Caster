@@ -8,6 +8,7 @@ radius = 24.0
 
 [node name="PlayerProjectile" type="Area2D"]
 script = ExtResource("1_qf75d")
+movement_speed = 825.0
 friendly = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

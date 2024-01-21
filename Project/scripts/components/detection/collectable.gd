@@ -1,6 +1,7 @@
 class_name Collectable
 extends Area2D
 
+@export var main_parent: Node2D = self
 var collected_already: bool = false
 
 

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://3mg0ahpn33x"
+path="res://.godot/imported/Battle of a Lifetime (WIP Boss).mp3-d0a79637cc5db6604588af80442d0da6.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Battle of a Lifetime (WIP Boss).mp3"
+dest_files=["res://.godot/imported/Battle of a Lifetime (WIP Boss).mp3-d0a79637cc5db6604588af80442d0da6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

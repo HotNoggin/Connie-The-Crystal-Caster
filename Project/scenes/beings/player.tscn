@@ -191,28 +191,38 @@ _data = {
 "stop_shoot": SubResource("Animation_mm4qo")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_controller", "graphic", "idle_gun", "run_gun", "health_displays", "health", "animator")]
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 58
 script = ExtResource("1_nq42l")
-player_controller = NodePath("PlayerController")
-graphic = NodePath("PixelSprite2D")
-idle_gun = NodePath("BulletSpawnerIdle")
-run_gun = NodePath("BulletSpawnerRun")
-health_displays = [NodePath("HealthDisplays/DisplayA"), NodePath("HealthDisplays/DisplayB"), NodePath("HealthDisplays/DisplayC"), NodePath("HealthDisplays/DisplayD"), NodePath("HealthDisplays/DisplayE")]
 death_scene = ExtResource("2_7ncqw")
-health = NodePath("Health")
-animator = NodePath("AnimationPlayer")
+player_controller = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("4_2cbyp"),"jump_buffer_time":0.25)
+
+graphic = Object(Sprite2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(0.3, 0.3),"skew":0.0,"texture":ExtResource("5_2gtwi"),"centered":true,"offset":Vector2(0, 0),"flip_h":false,"flip_v":false,"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"region_filter_clip_enabled":false,"script":ExtResource("3_r22nu"),"resize_to_unit":false)
+
+idle_gun = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("22_2t7um"),"marker":Object(Marker2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(-48, -16),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"gizmo_extents":10.0,"script":null)
+,"bullet":ExtResource("23_5fdb4"))
+
+run_gun = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("22_2t7um"),"marker":Object(Marker2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(-64, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"gizmo_extents":10.0,"script":null)
+,"bullet":ExtResource("23_5fdb4"))
+
+health = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("5_7t8nf"),"max_health":5)
+
+animator = Object(AnimationPlayer,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","active":true,"deterministic":false,"reset_on_save":true,"root_node":NodePath(".."),"root_motion_track":NodePath(""),"audio_max_polyphony":32,"callback_mode_process":1,"callback_mode_method":0,"libraries":{
+"": SubResource("AnimationLibrary_wubxq")
+},"autoplay":"idle","playback_default_blend_time":0.0,"speed_scale":1.0,"movie_quit_on_finish":false,"blend_times":[],"script":null)
+
 
 [node name="HealthDisplays" type="Node2D" parent="."]
 
 [node name="DisplayA" type="Sprite2D" parent="HealthDisplays"]
-position = Vector2(0, -56)
+position = Vector2(9.53674e-07, -80)
 rotation = -0.261799
 scale = Vector2(0.16, 0.16)
 texture = ExtResource("3_0fruh")
 script = ExtResource("3_r22nu")
 
 [node name="DisplayB" type="Sprite2D" parent="HealthDisplays"]
-position = Vector2(-24, -40)
+position = Vector2(-32, -64)
 rotation = -0.261799
 scale = Vector2(0.16, 0.16)
 texture = ExtResource("3_0fruh")
@@ -220,14 +230,14 @@ flip_h = true
 script = ExtResource("3_r22nu")
 
 [node name="DisplayC" type="Sprite2D" parent="HealthDisplays"]
-position = Vector2(24, -32)
+position = Vector2(32, -64)
 rotation = 0.374234
 scale = Vector2(0.16, 0.16)
 texture = ExtResource("3_0fruh")
 script = ExtResource("3_r22nu")
 
 [node name="DisplayD" type="Sprite2D" parent="HealthDisplays"]
-position = Vector2(-24, -16)
+position = Vector2(-40, -32)
 rotation = -1.0472
 scale = Vector2(0.16, 0.16)
 texture = ExtResource("3_0fruh")
@@ -235,7 +245,7 @@ flip_h = true
 script = ExtResource("3_r22nu")
 
 [node name="DisplayE" type="Sprite2D" parent="HealthDisplays"]
-position = Vector2(24, -16)
+position = Vector2(40, -32)
 rotation = 1.0472
 scale = Vector2(0.16, 0.16)
 texture = ExtResource("3_0fruh")
@@ -256,12 +266,6 @@ script = ExtResource("4_2cbyp")
 script = ExtResource("5_7t8nf")
 max_health = 5
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_wubxq")
-}
-autoplay = "idle"
-
 [node name="BulletSpawnerIdle" type="Node" parent="." node_paths=PackedStringArray("marker")]
 script = ExtResource("22_2t7um")
 marker = NodePath("Marker2D")
@@ -277,3 +281,9 @@ bullet = ExtResource("23_5fdb4")
 
 [node name="Marker2D" type="Marker2D" parent="BulletSpawnerRun"]
 position = Vector2(-64, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wubxq")
+}
+autoplay = "idle"

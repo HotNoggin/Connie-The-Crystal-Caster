@@ -1,22 +1,32 @@
-[gd_scene load_steps=5 format=3 uid="uid://bpghn0crqbk2v"]
+[gd_scene load_steps=6 format=3 uid="uid://bpghn0crqbk2v"]
 
 [ext_resource type="Script" path="res://scripts/specific/crystal.gd" id="1_a63nw"]
-[ext_resource type="Texture2D" uid="uid://d2oqtdyug4rlw" path="res://assets/graphics/miscellaneous/test_image.png" id="1_st8in"]
+[ext_resource type="Texture2D" uid="uid://bi0eaopajq8uy" path="res://assets/graphics/objects/crystal.png" id="1_mmcos"]
 [ext_resource type="Script" path="res://scripts/components/visuals/pixel_sprite2d.gd" id="2_u876w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qr3if"]
 radius = 32.0
 
-[node name="Crystal" type="Area2D"]
-script = ExtResource("1_a63nw")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_avnlh"]
+size = Vector2(64, 64)
+
+[node name="Crystal" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 16
 
 [node name="PixelSprite2D" type="Sprite2D" parent="."]
-modulate = Color(10, 1, 1, 1)
 texture_filter = 1
 position = Vector2(-4.76837e-07, 4.76837e-07)
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("1_st8in")
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_mmcos")
 script = ExtResource("2_u876w")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Collectable" type="Area2D" parent="." node_paths=PackedStringArray("main_parent")]
+script = ExtResource("1_a63nw")
+main_parent = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectable"]
 shape = SubResource("CircleShape2D_qr3if")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_avnlh")

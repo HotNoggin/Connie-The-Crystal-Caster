@@ -12,7 +12,9 @@ enum State {IDLE, RUN, JUMP, FALL, SHOOT, SHOOT_RUN, NONE}
 @export var death_scene: PackedScene
 @export_group("Movement")
 @export var movement_speed: float = 300
-@export var jump_strength: float = 600
+@export var jump_strength: float = 500
+@export_range(0, 1) var speed_scale: float = 0.5
+@export_range(0, 1) var jump_scale: float = 0.5
 
 var shoot_timer: Timer = Timer.new()
 var invincibility_remaining: float = 0
@@ -45,11 +47,6 @@ func _ready():
 
 
 func _process(_delta):
-	print(current_state)
-	print(animator.current_animation)
-	print(health.alive)
-	print("ARGH")
-	
 	if not health.alive:
 		animator.play("die")
 		return
@@ -91,23 +88,35 @@ func _physics_process(delta):
 		return
 	
 	_get_movement()
-	apply_gravity(delta)
+	apply_gravity(delta, variable_jump() * gravity)
 	if player_controller.just_jumped(self):
 		jump()
+	variable_jump()
 	move_and_slide()
 
 
-## Sets the player horizontal movement according to the input and speed
+## Sets the player horizontal movement according to the input, speed, and scaling
 func _get_movement(test: bool = false) -> float:
+	var speed: float = (float(health.max_health + 1) - float(health.value))
+	speed *= speed_scale
 	var added_velocity: float = player_controller.get_run_direction() * movement_speed
+	added_velocity *= speed
 	if not test:
 		velocity.x = added_velocity
 	return added_velocity
 
 
-## Set the velocity to the jump height
+## Set the velocity to the jump height, scale with health
 func jump():
-	velocity.y = -jump_strength * ((health.max_health - health.value) * 0.5)
+	velocity.y = -jump_strength * ((health.max_health - health.value) ** jump_scale)
+
+
+func variable_jump():
+	## Fall faster if going up while not jumping
+	if not player_controller.jumping and velocity.y < 0:
+		return 5
+	else:
+		return 1
 
 
 func shoot(gun: BulletSpawner, direction: Vector2):
@@ -135,7 +144,7 @@ func update_state() -> void:
 		current_state = State.SHOOT
 	elif velocity.y < 0:
 		current_state = State.JUMP
-	elif velocity.y > 0:
+	elif velocity.y >= 0 and not is_on_floor():
 		current_state = State.FALL
 	elif velocity.x:
 		current_state = State.RUN
@@ -166,16 +175,18 @@ func _state_changed(old_state: State):
 		animator.play("shoot_run")
 		animator.seek(time_mark)
 		shoot_timer.start(0.2)
-		
+
 
 func _done_shooting(animation_name):
 	match animation_name:
 		"shoot", "shoot_run":
 			current_state = State.NONE
-			update_state()
 			animator.animation_finished.disconnect(_done_shooting)
+
 			if animation_name == "shoot_run":
 				shoot_timer.stop()
+			
+			update_state()
 
 
 func set_invinciblility(time: float = 1):

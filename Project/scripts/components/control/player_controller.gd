@@ -9,6 +9,9 @@ var just_shot: bool:
 var jump_buffered: bool:
 	get:
 		return buffer_time_remaining > 0
+var jumping: bool:
+	get:
+		return Input.is_action_pressed("jump")
 
 
 func _process(_delta):
