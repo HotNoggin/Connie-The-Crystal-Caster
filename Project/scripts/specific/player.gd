@@ -6,9 +6,13 @@ enum State {IDLE, RUN, JUMP, FALL, SHOOT, SHOOT_RUN, NONE}
 
 @export var player_controller: PlayerController
 @export var graphic: Sprite2D
+@export_group("Combat")
+@export var hurtbox: HurtBox
 @export var idle_gun: BulletSpawner
 @export var run_gun: BulletSpawner
+@export var jump_gun: BulletSpawner
 @export var health_displays: Array[Sprite2D] ## NEED AT LEAST 5
+@export var invincible_time: float = 1
 @export var death_scene: PackedScene
 @export_group("Movement")
 @export var movement_speed: float = 300
@@ -30,9 +34,13 @@ var current_state: State:
 
 
 func _ready():
+	GameInfo.player = self
+	GameInfo.time = 0
+	
 	add_child(shoot_timer)
 	shoot_timer.one_shot = true
 	shoot_timer.timeout.connect(_done_shooting.bind("shoot_run"))
+	hurtbox.hurt_enemy.connect(_bounce)
 	
 	# Display the health when it changes, set it to center
 	health.value = 3
@@ -46,7 +54,7 @@ func _ready():
 		show_health())
 
 
-func _process(_delta):
+func _process(delta):
 	if not health.alive:
 		animator.play("die")
 		return
@@ -55,13 +63,21 @@ func _process(_delta):
 		animator.play("die")
 		return
 	
-	invincibility_remaining -= _delta
+	GameInfo.time += delta
+	
+	invincibility_remaining -= delta
 	invincibility_remaining = max(invincibility_remaining, 0)
+	if invincibility_remaining > 0.2:
+		graphic.self_modulate = Color(1, 1, 1, 0.5)
+	else:
+		graphic.self_modulate = Color(1, 1, 1, 1)
 	
 	update_state()
 	
 	if player_controller.get_run_direction():
 		graphic.flip_h = true if player_controller.get_run_direction() > 0 else false
+	
+	var animation_scale = (health.max_health - health.value + 1) * speed_scale
 	
 	match current_state:
 		State.IDLE:
@@ -71,11 +87,14 @@ func _process(_delta):
 		State.JUMP:
 			animator.play("jump")
 		State.RUN:
-			animator.play("run")
+			animator.play("run", -1, animation_scale)
 		State.SHOOT:
-			animator.play("shoot")
+			if is_on_floor():
+				animator.play("shoot")
+			else:
+				animator.play("jump_shoot")
 		State.SHOOT_RUN:
-			animator.play("shoot_run")
+			animator.play("shoot_run", -1, animation_scale)
 		_:
 			animator.play("idle")
 
@@ -86,6 +105,8 @@ func _physics_process(delta):
 	
 	if not active:
 		return
+	
+	hurtbox.hurts_enemies = true if current_state == State.FALL else false
 	
 	_get_movement()
 	apply_gravity(delta, variable_jump() * gravity)
@@ -109,6 +130,11 @@ func _get_movement(test: bool = false) -> float:
 ## Set the velocity to the jump height, scale with health
 func jump():
 	velocity.y = -jump_strength * ((health.max_health - health.value) ** jump_scale)
+
+
+## Set the velocity as if a weaker jump occured
+func _bounce(_enemy: Enemy):
+	velocity.y = -(jump_strength) * ((health.max_health - health.value) ** jump_scale)
 
 
 func variable_jump():
@@ -166,7 +192,10 @@ func _state_changed(old_state: State):
 			current_state = State.SHOOT_RUN
 			shoot(run_gun, shoot_direction)
 		else:
-			shoot(idle_gun, shoot_direction)
+			if is_on_floor():
+				shoot(idle_gun, shoot_direction)
+			else:
+				shoot(jump_gun, shoot_direction)
 		
 		animator.animation_finished.connect(_done_shooting)
 
@@ -179,7 +208,7 @@ func _state_changed(old_state: State):
 
 func _done_shooting(animation_name):
 	match animation_name:
-		"shoot", "shoot_run":
+		"shoot", "shoot_run", "jump_shoot":
 			current_state = State.NONE
 			animator.animation_finished.disconnect(_done_shooting)
 
@@ -191,6 +220,12 @@ func _done_shooting(animation_name):
 
 func set_invinciblility(time: float = 1):
 	invincibility_remaining = time
+
+
+func hurt():
+	if not invincible:
+		health.decrease()
+		set_invinciblility(invincible_time)
 
 
 func show_health():

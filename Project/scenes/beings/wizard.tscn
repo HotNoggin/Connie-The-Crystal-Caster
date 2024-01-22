@@ -1,0 +1,214 @@
+[gd_scene load_steps=14 format=3 uid="uid://cnvjjqup4rn1u"]
+
+[ext_resource type="PackedScene" uid="uid://cw2pmlwoo2nlx" path="res://scenes/beings/enemy.tscn" id="1_pi3xy"]
+[ext_resource type="Script" path="res://scripts/specific/wizard.gd" id="2_2y0nk"]
+[ext_resource type="Texture2D" uid="uid://dbd4vjjpbmsux" path="res://assets/graphics/beings/wizard/Wizard Idle 1.png" id="2_ltmu2"]
+[ext_resource type="Script" path="res://scripts/components/control/bullet_spawner.gd" id="4_6pud8"]
+[ext_resource type="Texture2D" uid="uid://debafupob8iv0" path="res://assets/graphics/beings/wizard/Wizard Attack 1.png" id="4_dnwkj"]
+[ext_resource type="Texture2D" uid="uid://c42a4x6r3v4a1" path="res://assets/graphics/beings/wizard/Wizard Hurt 1.png" id="4_vk66o"]
+[ext_resource type="PackedScene" uid="uid://dohj32j36pbve" path="res://scenes/objects/enemy_projectile.tscn" id="5_cfu6e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_86h7i"]
+size = Vector2(64, 128)
+
+[sub_resource type="Animation" id="Animation_mughw"]
+resource_name = "cast"
+length = 2.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"shoot"
+}, {
+"args": [],
+"method": &"teleport"
+}, {
+"args": [],
+"method": &"idle"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PixelSprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("4_dnwkj"), ExtResource("2_ltmu2")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PixelSprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 1, 1.4, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8q1bp"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_ltmu2")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PixelSprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_kawux"]
+resource_name = "hurt"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_vk66o")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PixelSprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"teleport"
+}, {
+"args": [],
+"method": &"idle"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_icsb5"]
+resource_name = "die"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"disable"
+}, {
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PixelSprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_vk66o")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PixelSprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_skoo2"]
+_data = {
+"cast": SubResource("Animation_mughw"),
+"die": SubResource("Animation_icsb5"),
+"hurt": SubResource("Animation_kawux"),
+"idle": SubResource("Animation_8q1bp")
+}
+
+[node name="Wizard" node_paths=PackedStringArray("wand", "marker") instance=ExtResource("1_pi3xy")]
+script = ExtResource("2_2y0nk")
+wand = NodePath("BulletSpawner")
+marker = NodePath("BulletSpawner/Marker2D")
+teleport_range = 384.0
+movement_speed = 100
+
+[node name="PixelSprite2D" parent="." index="0"]
+texture = ExtResource("4_vk66o")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_86h7i")
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_skoo2")
+}
+
+[node name="Health" parent="." index="4"]
+max_health = 5
+
+[node name="BulletSpawner" type="Node2D" parent="." index="5" node_paths=PackedStringArray("marker", "main_parent")]
+script = ExtResource("4_6pud8")
+marker = NodePath("Marker2D")
+bullet = ExtResource("5_cfu6e")
+main_parent = NodePath("..")
+
+[node name="Marker2D" type="Marker2D" parent="BulletSpawner" index="0"]
+position = Vector2(-40, 0)

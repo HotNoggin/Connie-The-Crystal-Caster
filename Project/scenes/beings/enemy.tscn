@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://cw2pmlwoo2nlx"]
+
+[ext_resource type="Script" path="res://scripts/components/movement/enemy.gd" id="1_dtfs5"]
+[ext_resource type="Script" path="res://scripts/components/detection/hurtbox.gd" id="3_1x5tl"]
+[ext_resource type="Script" path="res://scripts/components/visuals/pixel_sprite2d.gd" id="3_tsjwg"]
+[ext_resource type="Script" path="res://scripts/components/information/health.gd" id="4_q5fyy"]
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("hurtbox", "graphic", "health", "animator")]
+collision_layer = 32
+collision_mask = 20
+script = ExtResource("1_dtfs5")
+hurtbox = NodePath("HurtBox")
+graphic = NodePath("PixelSprite2D")
+health = NodePath("Health")
+animator = NodePath("AnimationPlayer")
+
+[node name="PixelSprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+script = ExtResource("3_tsjwg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 32
+script = ExtResource("3_1x5tl")
+hurts_player = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("4_q5fyy")
+max_health = 1

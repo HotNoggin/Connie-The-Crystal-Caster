@@ -1,0 +1,121 @@
+[gd_scene load_steps=11 format=3 uid="uid://ijyjhc8y7r15"]
+
+[ext_resource type="PackedScene" uid="uid://lvrem2nbth4i" path="res://scenes/beings/player.tscn" id="4_ydxid"]
+[ext_resource type="Script" path="res://scripts/components/control/spawner.gd" id="5_38io6"]
+[ext_resource type="PackedScene" uid="uid://cnvjjqup4rn1u" path="res://scenes/beings/wizard.tscn" id="6_3brrf"]
+[ext_resource type="PackedScene" uid="uid://cuutmrcq6hwhp" path="res://scenes/beings/slime.tscn" id="6_lx127"]
+[ext_resource type="AudioStream" uid="uid://b4u0x5ydptl5x" path="res://assets/music/Crystal Beatdown (Main Theme).mp3" id="6_mhyk4"]
+[ext_resource type="PackedScene" uid="uid://bpghn0crqbk2v" path="res://scenes/objects/crystal.tscn" id="6_mo61t"]
+[ext_resource type="PackedScene" uid="uid://ey87yku7116d" path="res://scenes/beings/bat.tscn" id="6_wddbb"]
+[ext_resource type="TileSet" uid="uid://t5mhx237jlau" path="res://resources/tilemap/arena_tilseset.tres" id="7_10x3j"]
+[ext_resource type="Script" path="res://scripts/nodes/looping_audio.gd" id="7_mvcf2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k3n0n"]
+size = Vector2(160, 576)
+
+[node name="Arena" type="Node2D"]
+
+[node name="Collision" type="Node2D" parent="."]
+
+[node name="TileMap" type="TileMap" parent="Collision"]
+scale = Vector2(0.28, 0.28)
+tile_set = ExtResource("7_10x3j")
+format = 2
+layer_0/name = "Background"
+layer_0/tile_data = PackedInt32Array(-131080, 16, 0, -65544, 16, 0, -8, 16, 0, 65528, 16, 0, 131064, 16, 0, 196600, 16, 0, -131079, 16, 0, -65543, 16, 0, -7, 16, 0, 65529, 16, 0, 131065, 16, 0, 196601, 16, 0, -131078, 16, 0, -65542, 16, 0, -6, 16, 0, 65530, 16, 0, 131066, 16, 0, 196602, 16, 0, -131077, 16, 0, -65541, 16, 0, -5, 16, 0, 65531, 16, 0, 131067, 16, 0, 196603, 16, 0, -131076, 16, 0, -65540, 16, 0, -4, 16, 0, 65532, 16, 0, 131068, 16, 0, 196604, 16, 0, -131075, 16, 0, -65539, 16, 0, -3, 16, 0, 65533, 16, 0, 131069, 16, 0, 196605, 16, 0, -131074, 16, 0, -65538, 16, 0, -2, 16, 0, 65534, 16, 0, 131070, 16, 0, 196606, 16, 0, -131073, 16, 0, -65537, 16, 0, -1, 16, 0, 65535, 16, 0, 131071, 16, 0, 196607, 16, 0, -196608, 16, 0, -131072, 16, 0, -65536, 16, 0, 0, 16, 0, 65536, 16, 0, 131072, 16, 0, -196607, 16, 0, -131071, 16, 0, -65535, 16, 0, 1, 16, 0, 65537, 16, 0, 131073, 16, 0, -196606, 16, 0, -131070, 16, 0, -65534, 16, 0, 2, 16, 0, 65538, 16, 0, 131074, 16, 0, -196605, 16, 0, -131069, 16, 0, -65533, 16, 0, 3, 16, 0, 65539, 16, 0, 131075, 16, 0, -196604, 16, 0, -131068, 16, 0, -65532, 16, 0, 4, 16, 0, 65540, 16, 0, 131076, 16, 0, -196603, 16, 0, -131067, 16, 0, -65531, 16, 0, 5, 16, 0, 65541, 16, 0, 131077, 16, 0, -196602, 16, 0, -131066, 16, 0, -65530, 16, 0, 6, 16, 0, 65542, 16, 0, 131078, 16, 0, -196601, 16, 0, -131065, 16, 0, -65529, 16, 0, 7, 16, 0, 65543, 16, 0, 131079, 16, 0, -196616, 16, 0, -196615, 16, 0, -196614, 16, 0, -196613, 16, 0, -196612, 16, 0, -196611, 16, 0, -196610, 16, 0, -196609, 16, 0, -262144, 16, 0, -262143, 16, 0, -262142, 16, 0, -262141, 16, 0, -262140, 16, 0, -262139, 16, 0, -262138, 16, 0, -262137, 16, 0, 262136, 16, 0, 327672, 16, 0, 393208, 16, 0, 262137, 16, 0, 327673, 16, 0, 393209, 16, 0, 262138, 16, 0, 327674, 16, 0, 393210, 16, 0, 262139, 16, 0, 327675, 16, 0, 393211, 16, 0, 262140, 16, 0, 327676, 16, 0, 393212, 16, 0, 262141, 16, 0, 327677, 16, 0, 393213, 16, 0, 262142, 16, 0, 327678, 16, 0, 393214, 16, 0, 262143, 16, 0, 327679, 16, 0, 393215, 16, 0, 196608, 16, 0, 262144, 16, 0, 327680, 16, 0, 196609, 16, 0, 262145, 16, 0, 327681, 16, 0, 196610, 16, 0, 262146, 16, 0, 327682, 16, 0, 196611, 16, 0, 262147, 16, 0, 327683, 16, 0, 196612, 16, 0, 262148, 16, 0, 327684, 16, 0, 196613, 16, 0, 262149, 16, 0, 327685, 16, 0, 196614, 16, 0, 262150, 16, 0, 327686, 16, 0, 196615, 16, 0, 262151, 16, 0, 327687, 16, 0)
+layer_1/name = "Ground"
+layer_1/tile_data = PackedInt32Array(327672, 17, 0, 393208, 17, 0, 393209, 17, 0, 393210, 17, 0, 393211, 17, 0, 393212, 17, 0, 393213, 17, 0, 393214, 17, 0, 393215, 17, 0, 327680, 17, 0, 327681, 17, 0, 327682, 17, 0, 327683, 17, 0, 327684, 17, 0, 327685, 17, 0, 327686, 17, 0, 327687, 17, 0, 262151, 17, 0, 262150, 17, 0, 262149, 17, 0, 262148, 17, 0, 262147, 17, 0, 262146, 17, 0, 262145, 17, 0, 262144, 17, 0, 327679, 17, 0, 327678, 17, 0, 327677, 17, 0, 327676, 17, 0, 327675, 17, 0, 327674, 17, 0, 327673, 17, 0, 262136, 0, 0, 196600, 0, 0, 131064, 0, 0, 65528, 0, 0, -8, 0, 0, -65544, 0, 0, -131080, 0, 0, -196616, 0, 0, -262137, 0, 0, -196601, 0, 0, -131065, 0, 0, -65529, 0, 0, 7, 0, 0, 65543, 0, 0, 131079, 0, 0, 196615, 0, 0, 327671, 17, 0, 327670, 17, 0, 327669, 17, 0, 393205, 17, 0, 393206, 17, 0, 393207, 17, 0, 327668, 17, 0, 393204, 17, 0, 262152, 17, 0, 327688, 17, 0, 327689, 17, 0, 327690, 17, 0, 262154, 17, 0, 262153, 17, 0, 262155, 17, 0, 327691, 17, 0)
+
+[node name="LeftArea" type="Area2D" parent="Collision"]
+position = Vector2(-560, 0)
+collision_layer = 80
+collision_mask = 127
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision/LeftArea"]
+shape = SubResource("RectangleShape2D_k3n0n")
+
+[node name="RightArea" type="Area2D" parent="Collision"]
+position = Vector2(560, 0)
+collision_layer = 80
+collision_mask = 127
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision/RightArea"]
+shape = SubResource("RectangleShape2D_k3n0n")
+
+[node name="Spawners" type="Node" parent="."]
+
+[node name="SlimeSpawnLeft" type="Node" parent="Spawners" node_paths=PackedStringArray("spawn_minimum", "spawn_maximum")]
+script = ExtResource("5_38io6")
+spawn_minimum = NodePath("PositionLeft")
+spawn_maximum = NodePath("PositionLeft")
+scene = ExtResource("6_lx127")
+spawn_on_start = true
+spawn_time = 10.0
+initial_time = 5.0
+randomization = 4.0
+
+[node name="PositionLeft" type="Marker2D" parent="Spawners/SlimeSpawnLeft"]
+position = Vector2(-560, 192)
+
+[node name="SlimeSpawnRight" type="Node" parent="Spawners" node_paths=PackedStringArray("spawn_minimum", "spawn_maximum")]
+script = ExtResource("5_38io6")
+spawn_minimum = NodePath("PositionRight")
+spawn_maximum = NodePath("PositionRight")
+scene = ExtResource("6_lx127")
+spawn_time = 10.0
+randomization = 4.0
+
+[node name="PositionRight" type="Marker2D" parent="Spawners/SlimeSpawnRight"]
+position = Vector2(560, 192)
+
+[node name="GemSpawner" type="Node" parent="Spawners" node_paths=PackedStringArray("spawn_minimum", "spawn_maximum")]
+script = ExtResource("5_38io6")
+spawn_minimum = NodePath("Minimum")
+spawn_maximum = NodePath("Maximum")
+scene = ExtResource("6_mo61t")
+spawn_time = 10.0
+
+[node name="Minimum" type="Marker2D" parent="Spawners/GemSpawner"]
+position = Vector2(-448, -320)
+
+[node name="Maximum" type="Marker2D" parent="Spawners/GemSpawner"]
+position = Vector2(448, -320)
+
+[node name="BatSpawner" type="Node" parent="Spawners" node_paths=PackedStringArray("spawn_minimum", "spawn_maximum")]
+script = ExtResource("5_38io6")
+spawn_minimum = NodePath("../GemSpawner/Minimum")
+spawn_maximum = NodePath("../GemSpawner/Maximum")
+scene = ExtResource("6_wddbb")
+spawn_time = 10.0
+initial_time = 25.0
+randomization = 5.0
+
+[node name="WizardSpawnerLeft" type="Node" parent="Spawners" node_paths=PackedStringArray("spawn_minimum", "spawn_maximum")]
+script = ExtResource("5_38io6")
+spawn_minimum = NodePath("../SlimeSpawnLeft/PositionLeft")
+spawn_maximum = NodePath("../SlimeSpawnLeft/PositionLeft")
+scene = ExtResource("6_3brrf")
+spawn_time = 15.0
+initial_time = 50.0
+randomization = 20.0
+
+[node name="WizardSpawnerRight" type="Node" parent="Spawners" node_paths=PackedStringArray("spawn_minimum", "spawn_maximum")]
+script = ExtResource("5_38io6")
+spawn_minimum = NodePath("../SlimeSpawnRight/PositionRight")
+spawn_maximum = NodePath("../SlimeSpawnRight/PositionRight")
+scene = ExtResource("6_3brrf")
+spawn_time = 15.0
+initial_time = 50.0
+randomization = 20.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, 80)
+zoom = Vector2(2, 2)
+
+[node name="Player" parent="." instance=ExtResource("4_ydxid")]
+position = Vector2(0, 224)
+
+[node name="MusicLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_mhyk4")
+autoplay = true
+script = ExtResource("7_mvcf2")

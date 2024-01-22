@@ -6,6 +6,8 @@ signal drained ## Emitted when the health is set to zero
 signal maxed ## Emitted when the health is set to the max value
 signal changed ## Emitted when the health is changed to a NEW value
 signal overmaxed ## Emitted when the health is changed to a value above the max
+signal increased
+signal decreased
 
 @export var max_health: int = 3
 var value: int:
@@ -14,12 +16,18 @@ var value: int:
 	set(new_value):
 		health = new_value
 		value = health
-var health: int = max_health:
+var health: int:
 	set(value):
 		var old_value = health
 		health = clamp(value, 0, max_health)
+		
 		if not old_value == health:
-			changed.emit()
+			changed.emit()	
+		if health > old_value:
+			increased.emit()
+		elif health < old_value:
+			decreased.emit()
+		
 		if value == 0:
 			drained.emit()
 		elif value > max_health:
@@ -30,6 +38,9 @@ var health: int = max_health:
 var alive: bool: ## Returns true if the health is greater than zero
 	get:
 		return health > 0
+
+func _ready():
+	health = max_health
 
 
 ## Increase the health by the specified value or 1 if none specified

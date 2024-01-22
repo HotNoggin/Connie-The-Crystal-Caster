@@ -1,0 +1,174 @@
+[gd_scene load_steps=13 format=3 uid="uid://ey87yku7116d"]
+
+[ext_resource type="PackedScene" uid="uid://cw2pmlwoo2nlx" path="res://scenes/beings/enemy.tscn" id="1_m5xvr"]
+[ext_resource type="Script" path="res://scripts/specific/bat.gd" id="2_w1syw"]
+[ext_resource type="Texture2D" uid="uid://d2t2bjhhvnr8p" path="res://assets/graphics/beings/eye/Eye Idle 1.png" id="3_ouw3k"]
+[ext_resource type="Texture2D" uid="uid://bbyn2rqklxj1l" path="res://assets/graphics/beings/eye/Eye Hurt 1.png" id="4_56r4t"]
+[ext_resource type="Texture2D" uid="uid://6fn80oq6f8h2" path="res://assets/graphics/beings/eye/Eye Idle 2.png" id="4_rru11"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jirtv"]
+radius = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dmis1"]
+radius = 16.0
+
+[sub_resource type="Animation" id="Animation_hnvuv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_ouw3k")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PixelSprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -8)]
+}
+
+[sub_resource type="Animation" id="Animation_csbc0"]
+resource_name = "die"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"disable"
+}, {
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PixelSprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_56r4t")]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"bounce"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PixelSprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.6, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4j8ig"]
+resource_name = "fly"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("4_rru11"), ExtResource("3_ouw3k")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PixelSprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 8), Vector2(0, -8)]
+}
+
+[sub_resource type="Animation" id="Animation_umsyp"]
+resource_name = "hurt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PixelSprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_56r4t")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xl86e"]
+_data = {
+"RESET": SubResource("Animation_hnvuv"),
+"die": SubResource("Animation_csbc0"),
+"fly": SubResource("Animation_4j8ig"),
+"hurt": SubResource("Animation_umsyp")
+}
+
+[node name="Bat" instance=ExtResource("1_m5xvr")]
+script = ExtResource("2_w1syw")
+movement_speed = 120.0
+
+[node name="PixelSprite2D" parent="." index="0"]
+position = Vector2(0, -8)
+scale = Vector2(0.704, 0.704)
+texture = ExtResource("3_ouw3k")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_jirtv")
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource("CircleShape2D_dmis1")
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_xl86e")
+}
+
+[node name="Health" parent="." index="4"]
+max_health = 3

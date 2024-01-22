@@ -22,5 +22,5 @@ func die():
 	if animator.has_animation("die"):
 		animator.play("die")
 	else:
-		printerr("Actor animator lacks a 'die' animation and was freed.")
+		printerr("Actor animator lacks a 'die' animation and the actor was freed.")
 		queue_free()

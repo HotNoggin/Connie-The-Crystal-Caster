@@ -10,13 +10,16 @@ func _init():
 
 
 ## OVERRIDING THIS FUNCTION WILL CAUSE _collected AND _enemy_collided TO BREAK
-func _collided(body: Node2D):
+func _collided(body: Node2D) -> bool:
 	if body is Player:
 		_collected(body)
+		collected_already = true
+		return true
 	if body is Enemy:
 		_enemy_collided(body)
-	
-	collected_already = true
+		collected_already = true
+		return true
+	return false
 
 
 func _collected(_player: Player):

@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bdoaj3qj07lnj"]
+[gd_scene load_steps=6 format=3 uid="uid://bdoaj3qj07lnj"]
 
 [ext_resource type="Script" path="res://scripts/global/transition.gd" id="1_xtmef"]
-[ext_resource type="PackedScene" uid="uid://dfvt6a0nx6ws" path="res://scenes/world/levels/test_arena.tscn" id="2_aiiva"]
 
 [sub_resource type="Animation" id="Animation_pibp8"]
 length = 0.001
@@ -59,7 +58,6 @@ _data = {
 process_mode = 3
 script = ExtResource("1_xtmef")
 animator = NodePath("AnimationPlayer")
-test_scene = ExtResource("2_aiiva")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
