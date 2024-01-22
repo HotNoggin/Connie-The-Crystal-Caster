@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://cylvvs3j3ckax"]
+
+[ext_resource type="Script" path="res://scripts/specific/game_over.gd" id="1_hqkmd"]
+[ext_resource type="Texture2D" uid="uid://35anismei3l4" path="res://assets/graphics/ui/game_over.png" id="1_ow5qt"]
+[ext_resource type="LabelSettings" uid="uid://4efltxs20s0y" path="res://resources/ui/default_label_settings.tres" id="3_hf7w7"]
+[ext_resource type="AudioStream" uid="uid://duqm024agweyw" path="res://assets/music/Shattered (Game Over).mp3" id="4_5e7mf"]
+[ext_resource type="Script" path="res://scripts/nodes/looping_audio.gd" id="5_6ou7f"]
+
+[node name="GameOver" type="Control" node_paths=PackedStringArray("time_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hqkmd")
+time_label = NodePath("TimeLabel")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ow5qt")
+expand_mode = 3
+
+[node name="RestartLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.333
+anchor_top = 0.573333
+anchor_right = 0.933
+anchor_bottom = 0.658333
+offset_left = 0.640015
+offset_top = -0.200012
+offset_right = -0.360107
+text = "PRESS SHOOT TO TRY AGAIN"
+label_settings = ExtResource("3_hf7w7")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="TimeLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 640.0
+offset_top = 536.0
+offset_right = -129.0
+offset_bottom = -461.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "YOUR TIME HERE"
+label_settings = ExtResource("3_hf7w7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusicLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_5e7mf")
+script = ExtResource("5_6ou7f")

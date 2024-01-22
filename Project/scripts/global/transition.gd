@@ -2,7 +2,6 @@ extends CanvasLayer
 ## The Transition singleton script
 
 @export var animator: AnimationPlayer
-@export var test_scene: PackedScene
 
 
 func transition_to_packed(scene: PackedScene):

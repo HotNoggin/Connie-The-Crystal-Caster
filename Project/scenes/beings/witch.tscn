@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://4nhcqolviaao"]
+
+[ext_resource type="PackedScene" uid="uid://cw2pmlwoo2nlx" path="res://scenes/beings/enemy.tscn" id="1_tow52"]
+[ext_resource type="Texture2D" uid="uid://bqsmpxqyyghyw" path="res://assets/graphics/beings/witch/Witch Idle 1.png" id="2_3xx6r"]
+[ext_resource type="Script" path="res://scripts/specific/witch.gd" id="2_pde2k"]
+[ext_resource type="Script" path="res://scripts/components/control/bullet_spawner.gd" id="4_louvb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f473w"]
+radius = 56.0
+
+[node name="Witch" node_paths=PackedStringArray("wand", "marker") instance=ExtResource("1_tow52")]
+script = ExtResource("2_pde2k")
+wand = NodePath("BulletSpawner")
+marker = NodePath("BulletSpawner/Marker2D")
+movement_speed = 80.0
+teleport_range = 384.0
+
+[node name="PixelSprite2D" parent="." index="0"]
+scale = Vector2(0.352, 0.352)
+texture = ExtResource("2_3xx6r")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_f473w")
+
+[node name="BulletSpawner" type="Node2D" parent="." index="5"]
+script = ExtResource("4_louvb")
+
+[node name="Marker2D" type="Marker2D" parent="BulletSpawner" index="0"]
+position = Vector2(-32, -16)

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://da2njrm1w5on5"
+path="res://.godot/imported/Calm Down Crystal Gal (Menu).mp3-2f85230b06ecbfcfd114280ee6533c5a.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Calm Down Crystal Gal (Menu).mp3"
+dest_files=["res://.godot/imported/Calm Down Crystal Gal (Menu).mp3-2f85230b06ecbfcfd114280ee6533c5a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

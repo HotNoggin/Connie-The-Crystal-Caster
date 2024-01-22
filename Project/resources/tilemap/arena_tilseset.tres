@@ -1,0 +1,47 @@
+[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://t5mhx237jlau"]
+
+[ext_resource type="Texture2D" uid="uid://c8xjddtmbx4cc" path="res://assets/graphics/environment/brick.png" id="1_e3i36"]
+[ext_resource type="Texture2D" uid="uid://dvng7alih0nk" path="res://assets/graphics/environment/brick2.png" id="2_h0dno"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2mn0k"]
+resource_name = "invisible wall"
+texture = ExtResource("1_e3i36")
+texture_region_size = Vector2i(250, 250)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_1/angular_velocity = 0.0
+0:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-125, -125, 125, -125, 125, 125, -125, 125)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pt3wq"]
+resource_name = "background"
+texture = ExtResource("1_e3i36")
+texture_region_size = Vector2i(250, 250)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_1/angular_velocity = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dcdqp"]
+resource_name = "ground"
+texture = ExtResource("2_h0dno")
+texture_region_size = Vector2i(250, 250)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-125, -125, 125, -125, 125, 125, -125, 125)
+0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_1/angular_velocity = 0.0
+
+[resource]
+tile_size = Vector2i(250, 250)
+physics_layer_0/collision_layer = 16
+physics_layer_0/collision_mask = 63
+physics_layer_1/collision_layer = 64
+physics_layer_1/collision_mask = 95
+sources/16 = SubResource("TileSetAtlasSource_pt3wq")
+sources/17 = SubResource("TileSetAtlasSource_dcdqp")
+sources/0 = SubResource("TileSetAtlasSource_2mn0k")
+tile_proxies/coords_level = [[7, Vector2i(0, 0)], [15, Vector2i(0, 0)], [8, Vector2i(0, 0)], [15, Vector2i(1, 0)], [9, Vector2i(0, 0)], [15, Vector2i(2, 0)], [10, Vector2i(0, 0)], [15, Vector2i(3, 0)], [10, Vector2i(1, 0)], [15, Vector2i(4, 0)], [11, Vector2i(0, 0)], [15, Vector2i(0, 1)], [11, Vector2i(1, 0)], [15, Vector2i(1, 1)], [12, Vector2i(0, 0)], [15, Vector2i(2, 1)], [13, Vector2i(0, 0)], [15, Vector2i(3, 1)]]

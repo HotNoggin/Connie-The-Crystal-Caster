@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dohj32j36pbve"]
+
+[ext_resource type="Script" path="res://scripts/components/detection/projectile.gd" id="1_le0js"]
+[ext_resource type="Texture2D" uid="uid://b6qeo22jodiqv" path="res://assets/graphics/objects/red_shard.png" id="2_ljcgk"]
+[ext_resource type="Script" path="res://scripts/components/visuals/pixel_sprite2d.gd" id="3_75kar"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iuq4i"]
+size = Vector2(48, 20)
+
+[node name="EnemyProjectile" type="Area2D" node_paths=PackedStringArray("main_parent")]
+collision_layer = 8
+collision_mask = 17
+script = ExtResource("1_le0js")
+friendly = true
+main_parent = NodePath(".")
+
+[node name="PixelSprite2D" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(5, 0)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_ljcgk")
+script = ExtResource("3_75kar")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_iuq4i")

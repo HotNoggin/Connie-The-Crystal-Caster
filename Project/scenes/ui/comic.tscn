@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://t8t1113hn6xp"]
+
+[ext_resource type="Texture2D" uid="uid://cdtp7isnjbxqe" path="res://assets/graphics/ui/comic.png" id="1_k11pg"]
+[ext_resource type="Script" path="res://scripts/specific/comic.gd" id="1_ri3ja"]
+
+[sub_resource type="Animation" id="Animation_8ki2k"]
+resource_name = "comic"
+length = 40.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(6, 37),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1000, 0), Vector2(-1000, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(40),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start_game"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_0bo4v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1000, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kwo3t"]
+_data = {
+"RESET": SubResource("Animation_0bo4v"),
+"comic": SubResource("Animation_8ki2k")
+}
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_ri3ja")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1000, 0)
+texture = ExtResource("1_k11pg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kwo3t")
+}
+autoplay = "comic"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)

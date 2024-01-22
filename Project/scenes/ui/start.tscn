@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://bywlyxyb1g13m"]
+
+[ext_resource type="Script" path="res://scripts/specific/start.gd" id="1_4t405"]
+[ext_resource type="Texture2D" uid="uid://c1v2xk06nlpot" path="res://assets/graphics/ui/controller_info.png" id="2_7t2t3"]
+[ext_resource type="Texture2D" uid="uid://0664hmy332i" path="res://assets/graphics/ui/keyboard_info.png" id="3_gw3s6"]
+[ext_resource type="Texture2D" uid="uid://do5obv3didcqy" path="res://assets/graphics/ui/title.png" id="4_coy20"]
+[ext_resource type="LabelSettings" uid="uid://4efltxs20s0y" path="res://resources/ui/default_label_settings.tres" id="5_eheo3"]
+[ext_resource type="AudioStream" uid="uid://da2njrm1w5on5" path="res://assets/music/Calm Down Crystal Gal (Menu).mp3" id="6_k8ooi"]
+[ext_resource type="Script" path="res://scripts/nodes/looping_audio.gd" id="7_dh4c6"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4t405")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.121569, 0.054902, 0.109804, 1)
+
+[node name="Title" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.520833
+anchor_bottom = 0.925926
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_coy20")
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="ControllerPrompt" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_7t2t3")
+expand_mode = 2
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="KeyboardPrompt" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_gw3s6")
+expand_mode = 2
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.499815
+anchor_right = 0.521
+anchor_bottom = 1.0
+offset_top = 0.199951
+offset_right = -0.320068
+grow_horizontal = 2
+grow_vertical = 2
+text = "PRESS SHOOT TO START"
+label_settings = ExtResource("5_eheo3")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="MusicLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_k8ooi")
+autoplay = true
+script = ExtResource("7_dh4c6")
